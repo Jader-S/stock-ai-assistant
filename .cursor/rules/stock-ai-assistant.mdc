@@ -1,0 +1,47 @@
+---
+description: 修改本项目前自动读文档，修改后更新 memory-bank
+alwaysApply: true
+---
+
+# Stock AI Assistant - 修改前必读 & Memory Bank
+
+## 一、每次修改时的自动流程（无需用户再次提醒）
+
+### 1. 开始时：自动读取项目文档
+
+在**动手修改本仓库任何业务代码或文档之前**，你必须**先自动读取**以下两个文件（用 Read 工具打开并理解），无需用户输入「请先看 docs」：
+
+- **docs/ARCHITECTURE.md** — 项目结构、技术栈、数据流（聊天/存储/错误）、环境变量、关键文件职责。
+- **docs/DESIGN.md** — 设计原则、编码规范、UI 与错误约定、修改检查清单。
+
+要求：在本次对话中，若用户请求涉及代码或文档修改，你的**第一步**应是读取上述两个文件，再根据 ARCHITECTURE 与 DESIGN 进行修改。不要跳过此步骤。
+
+### 2. 结束时：更新 Memory Bank
+
+每次完成对**业务代码或项目文档**（含 docs、README、本规则）的修改后，你必须**在回复用户之前**更新操作日志：
+
+- 打开 **memory-bank/OPERATIONS.md**。
+- 在文件**末尾**按既有格式追加一条记录，包含：
+  - **版本号**：比当前最后一条版本号 +1。
+  - **日期**：YYYY-MM-DD。
+  - **摘要**：一句话说明本次修改内容。
+  - **涉及文件**：本次改动过的文件路径列表。
+  - **说明**：（可选）重要决策或与架构/设计文档的关联。
+
+格式见 `memory-bank/OPERATIONS.md` 顶部的模板。未做任何代码或文档修改的对话（如纯答疑）可不更新 OPERATIONS。
+
+## 二、修改时的强制要求
+
+- **不破坏约定**：不删除或弱化错误分类、不取消流式/自动滚动、不清空对话时不同步清除 localStorage、不暴露内部错误信息。
+- **类型与文档**：改动消息结构、API 契约、存储格式或环境变量时，同步更新类型定义与 docs 中的说明。
+- **注释**：复杂逻辑保留或补充简短中文注释。
+- **日志**：生产环境不输出调试用 console；后端 console 仅限开发环境。
+
+## 三、快速定位
+
+- 聊天 UI、本地存储、错误展示、预设问题：`src/app/page.tsx`
+- 流式对话 API、Ollama 调用、错误返回：`src/app/api/chat/route.ts`
+- 主题与全局样式：`src/app/globals.css`
+- Shadcn 组件：`src/components/ui/*`，仅使用不改 API
+- 架构与设计：`docs/ARCHITECTURE.md`、`docs/DESIGN.md`
+- 操作与版本记录：`memory-bank/OPERATIONS.md`
